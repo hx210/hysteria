@@ -75,7 +75,7 @@ make_ldflags() {
     if [ -n "$HY_APP_VERSION" ]; then
         ldflags="$ldflags -X 'main.appVersion=$HY_APP_VERSION'"
     else
-        ldflags="$ldflags -X 'main.appVersion=$(git describe --tags --always --match 'v*')'"
+        ldflags="$ldflags -X 'main.appVersion=$(git tag --points-at HEAD | grep "^v" | head -n 1)'"
     fi
     if [ -n "$HY_APP_COMMIT" ]; then
         ldflags="$ldflags -X 'main.appCommit=$HY_APP_COMMIT'"

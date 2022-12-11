@@ -13,7 +13,7 @@ tasks:
     label: build-{{.TASK}}
     vars:
       BUILD_VERSION:
-        sh: git describe --tags
+        sh: git tag --points-at HEAD | grep "^v" | head -n 1
       BUILD_COMMIT:
         sh: git rev-parse HEAD
       BUILD_DATE:

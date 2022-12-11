@@ -67,7 +67,9 @@ if ($env:HY_APP_VERSION) {
     $ldflags += " -X 'main.appVersion=$($env:HY_APP_VERSION)'"
 }
 else {
-    $ldflags += " -X 'main.appVersion=$(git describe --tags --always)'"
+    $gitTagOutput = git tag --points-at HEAD
+    $realTag = $gitTagOutput | ?{ $_.StartsWith("v") }
+    $ldflags += " -X 'main.appVersion=$realTag'"
 }
 if ($env:HY_APP_COMMIT) {
     $ldflags += " -X 'main.appCommit=$($env:HY_APP_COMMIT)'"
